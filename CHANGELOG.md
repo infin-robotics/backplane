@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.0.0](https://github.com/infin-robotics/backplane/compare/v0.3.0...v1.0.0) (2026-10-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* replace Graph.Mermaid() with mermaid.Render(graph), and Graph.MermaidWith(backplane.MermaidOptions{...}) with mermaid.RenderWith(graph, mermaid.Options{...}). Direction constants now live in mermaid without the Mermaid prefix.
+* consumers must import github.com/infin-robotics/backplane. Public APIs and runtime behaviour are unchanged.
+
+### Features
+
+* construct Latest from channels ([1ae42c4](https://github.com/infin-robotics/backplane/commit/1ae42c4fd38a1d0523c271619d0c081e6d60344b))
+* construct Latest from channels ([c5c6361](https://github.com/infin-robotics/backplane/commit/c5c63613391545ee20bdcd32f258b499bd4287e2))
+* move Mermaid rendering into its own package ([6bf0dd3](https://github.com/infin-robotics/backplane/commit/6bf0dd3387ce72ae3642860e0398944b3869aa48))
+* move Mermaid rendering into its own package ([80fc296](https://github.com/infin-robotics/backplane/commit/80fc2963f32ae5c3b084297d999f1d88c75c56aa))
+
+
+### Code Refactoring
+
+* migrate backplane module to infin-robotics ([81adbec](https://github.com/infin-robotics/backplane/commit/81adbecdc7b71a1e43fef8549ffe41019f13b03f))
+
 ## [0.3.0](https://github.com/sunfish-robotics/backplane/compare/v0.2.0...v0.3.0) (2026-08-31)
 
 
