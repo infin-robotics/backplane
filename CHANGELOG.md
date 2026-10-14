@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0](https://github.com/infin-robotics/backplane/compare/v0.3.0...v1.0.0) (2026-10-14)
+## [0.4.0](https://github.com/infin-robotics/backplane/compare/v0.3.0...v0.4.0) (2026-10-14)
 
 
 ### ⚠ BREAKING CHANGES
@@ -10,9 +10,7 @@
 
 ### Features
 
-* construct Latest from channels ([1ae42c4](https://github.com/infin-robotics/backplane/commit/1ae42c4fd38a1d0523c271619d0c081e6d60344b))
 * construct Latest from channels ([c5c6361](https://github.com/infin-robotics/backplane/commit/c5c63613391545ee20bdcd32f258b499bd4287e2))
-* move Mermaid rendering into its own package ([6bf0dd3](https://github.com/infin-robotics/backplane/commit/6bf0dd3387ce72ae3642860e0398944b3869aa48))
 * move Mermaid rendering into its own package ([80fc296](https://github.com/infin-robotics/backplane/commit/80fc2963f32ae5c3b084297d999f1d88c75c56aa))
 
 
@@ -25,7 +23,6 @@
 
 ### Features
 
-* make Mermaid graphs easier to read ([36f44c2](https://github.com/sunfish-robotics/backplane/commit/36f44c2c69ca731d4aa9e7bce29d9a8fd1a00fe4))
 * make Mermaid graphs easier to read ([260a895](https://github.com/sunfish-robotics/backplane/commit/260a895551e0c60b291acac3c413795cec9435a1))
 
 ## [0.2.0](https://github.com/sunfish-robotics/backplane/compare/v0.1.0...v0.2.0) (2026-08-24)
