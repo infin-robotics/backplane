@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sunfish-robotics/backplane"
+	"github.com/infin-robotics/backplane"
 )
 
 type graphStore interface {

@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sunfish-robotics/backplane"
+	"github.com/infin-robotics/backplane"
 )
 
 func TestLatestZeroValueHoldsNothing(t *testing.T) {

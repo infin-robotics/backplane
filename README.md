@@ -14,7 +14,7 @@ declarations.
 ## Installation
 
 ```console
-go get github.com/sunfish-robotics/backplane
+go get github.com/infin-robotics/backplane
 ```
 
 ```go
@@ -190,9 +190,9 @@ while it is validated in production applications.
 
 Apache-2.0. See [LICENSE](LICENSE).
 
-[ci]: https://github.com/sunfish-robotics/backplane/actions/workflows/ci.yml
-[ci-badge]: https://github.com/sunfish-robotics/backplane/actions/workflows/ci.yml/badge.svg
-[go-reference]: https://pkg.go.dev/github.com/sunfish-robotics/backplane
+[ci]: https://github.com/infin-robotics/backplane/actions/workflows/ci.yml
+[ci-badge]: https://github.com/infin-robotics/backplane/actions/workflows/ci.yml/badge.svg
+[go-reference]: https://pkg.go.dev/github.com/infin-robotics/backplane
 [license]: LICENSE
 [license-badge]: https://img.shields.io/badge/license-Apache--2.0-blue.svg
-[reference-badge]: https://pkg.go.dev/badge/github.com/sunfish-robotics/backplane.svg
+[reference-badge]: https://pkg.go.dev/badge/github.com/infin-robotics/backplane.svg

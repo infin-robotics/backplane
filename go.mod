@@ -1,4 +1,4 @@
-module github.com/sunfish-robotics/backplane
+module github.com/infin-robotics/backplane
 
 go 1.25.0
 
