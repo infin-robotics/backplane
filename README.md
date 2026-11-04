@@ -120,30 +120,6 @@ assignability, so a concrete value can satisfy an interface parameter. Nil,
 duplicate, ambiguous, missing, and unused resources are all rejected before
 any module starts.
 
-## Runtime options
-
-Pass options alongside resources to configure a single `Run` invocation without
-changing the Backplane declaration. For example, count publications without
-instrumenting individual modules:
-
-```go
-var publications atomic.Int64
-err := application.Run(ctx, store, backplane.OnMessage(
-    func(_ context.Context, sender backplane.Node, topic reflect.Type, value any) {
-        publications.Add(1)
-    },
-))
-```
-
-Only `Option` values are treated as configuration; ordinary functions remain
-injectable resources. The last repeated option wins, and `OnMessage(nil)`
-disables the hook. Observation runs synchronously before fan-out, once per
-publication, including messages drained and dropped during shutdown—not once
-per subscriber or as an acknowledgement. Calls can overlap across topics, so
-handlers must be concurrency-safe, return promptly and not mutate message data.
-See [`OnMessage`](https://pkg.go.dev/github.com/infin-robotics/backplane#OnMessage)
-for the full callback and lifecycle contract.
-
 ## Lifecycle
 
 `Run` starts every module under one [errgroup]: returning `nil` completes just
