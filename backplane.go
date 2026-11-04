@@ -139,13 +139,26 @@ func validateTopics(modules []module) error {
 	return nil
 }
 
+// Run accepts resources and [Option] values in any order. Options configure only
+// this invocation; ordinary functions remain resources, even if they have the
+// same signature as an [OnMessage] callback.
+//
 // Run binds the supplied resources to the declared module parameters,
 // validates every binding, then starts all modules concurrently under one
 // errgroup. It returns once every module has returned. A module error takes
 // precedence; otherwise Run returns ctx.Err(), which is nil after natural
 // completion. See the package documentation for the lifecycle contract.
 func (b *Backplane) Run(ctx context.Context, resources ...any) error {
-	bindings, err := indexResources(resources)
+	options := runOptions{}
+	var bindingsInput []any
+	for _, resource := range resources {
+		if option, ok := resource.(Option); ok {
+			option.apply(&options)
+		} else {
+			bindingsInput = append(bindingsInput, resource)
+		}
+	}
+	bindings, err := indexResources(bindingsInput)
 	if err != nil {
 		return err
 	}
@@ -158,6 +171,7 @@ func (b *Backplane) Run(ctx context.Context, resources ...any) error {
 		t := topics[messageType]
 		if t == nil {
 			t = newTopic(messageType)
+			t.onMessage = options.onMessage
 			topics[messageType] = t
 		}
 		return t
@@ -170,7 +184,7 @@ func (b *Backplane) Run(ctx context.Context, resources ...any) error {
 		published []*publisherEndpoint
 	}
 	invocations := make([]invocation, 0, len(b.modules))
-	for _, m := range b.modules {
+	for moduleIndex, m := range b.modules {
 		inv := invocation{module: m, args: make([]reflect.Value, 0, len(m.params)+1)}
 		inv.args = append(inv.args, contextValue)
 		for _, p := range m.params {
@@ -184,6 +198,9 @@ func (b *Backplane) Run(ctx context.Context, resources ...any) error {
 			case publisherParameter:
 				t := topicFor(p.topicType)
 				channel, publisher := t.addPublisher(p.typeOf)
+				if options.onMessage != nil {
+					publisher.sender = moduleNode(moduleIndex, m)
+				}
 				inv.args = append(inv.args, channel)
 				inv.published = append(inv.published, publisher)
 			case subscriberParameter:
