@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0](https://github.com/infin-robotics/backplane/compare/v0.4.0...v0.5.0) (2026-11-04)
+
+
+### Features
+
+* observe publications through run-scoped options ([b3dc772](https://github.com/infin-robotics/backplane/commit/b3dc7722898ea9e36575e947737fbf3a1bd8a6a7))
+* observe publications through runtime options ([ea703c7](https://github.com/infin-robotics/backplane/commit/ea703c7f0be9b41e5f2d1ec0d2bb7ebd1f38275e))
+
 ## [0.4.0](https://github.com/infin-robotics/backplane/compare/v0.3.0...v0.4.0) (2026-10-14)
 
 
