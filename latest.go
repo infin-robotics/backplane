@@ -64,6 +64,11 @@ func (input *typedLatestInput[T]) closeAndWait() {
 // to project a channel they own. Latest itself exposes no operation that can
 // publish a value or complete the projection. The zero value holds no value and
 // stays empty forever.
+//
+// Runtime-owned projections never backpressure the topic. Topic completion
+// waits for the projection to drain, so Load sees the final accepted value
+// after [Backplane.Run] returns. Cancellation may drop publications before
+// they reach the projection.
 type Latest[T any] struct {
 	mu         sync.Mutex
 	value      T
