@@ -16,6 +16,7 @@ import (
 // once every publisher has completed. Backplane never closes a publisher
 // channel itself.
 type topic struct {
+	onMessage   messageHandler
 	messageType reflect.Type
 	inputs      []*publisherEndpoint
 	subscribers []subscription
@@ -30,6 +31,7 @@ type topic struct {
 // publisherEndpoint is one module's ingress to a topic. Explicit channel
 // closure and module return may race, so completion must be idempotent.
 type publisherEndpoint struct {
+	sender  Node
 	channel reflect.Value
 	topic   *topic
 	done    sync.Once
@@ -116,8 +118,13 @@ func (t *topic) pump(ctx context.Context) {
 		case !ok: // a module closed its publisher channel: stop receiving from it
 			inputs[chosen-2].complete()
 			inputs = slices.Delete(inputs, chosen-2, chosen-1)
-		case cancelled: // cancellation interrupts delivery: drain and drop
 		default:
+			if t.onMessage != nil {
+				t.onMessage(ctx, inputs[chosen-2].sender, t.messageType, value.Interface())
+			}
+			if cancelled { // cancellation interrupts delivery: drain and drop
+				continue
+			}
 			if t.latestInput != nil {
 				t.latestInput.offer(value)
 			}

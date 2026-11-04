@@ -3,6 +3,8 @@ package backplane_test
 import (
 	"context"
 	"fmt"
+	"reflect"
+	"sync/atomic"
 
 	"github.com/infin-robotics/backplane"
 )
@@ -88,6 +90,27 @@ func ExampleLatest() {
 	}
 	// Output:
 	// printer-1 is idle
+}
+
+func ExampleOnMessage() {
+	application, err := backplane.New(syncBackend)
+	if err != nil {
+		panic(err)
+	}
+	var publications atomic.Int64 // Different topics may call the hook concurrently.
+	err = application.Run(context.Background(),
+		&jobStore{queued: []string{"benchy", "bracket"}},
+		backplane.OnMessage(func(_ context.Context, _ backplane.Node, topic reflect.Type, _ any) {
+			if topic == reflect.TypeFor[jobQueued]() {
+				publications.Add(1)
+			}
+		}),
+	)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("publications:", publications.Load())
+	// Output: publications: 2
 }
 
 func ExampleNewLatest() {

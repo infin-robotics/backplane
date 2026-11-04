@@ -32,6 +32,14 @@
 // Nil, duplicate, ambiguous, missing, and unused resources are all rejected
 // before any module starts.
 //
+// # Runtime options
+//
+// Pass [Option] values alongside resources to [Backplane.Run] to configure that
+// invocation without changing the declaration. Options are not injected into
+// modules; ordinary functions remain resources. Repeated options use the last
+// value. [OnMessage] installs a synchronous, application-owned observation hook
+// for publications, including those drained during shutdown.
+//
 // # Topics and delivery
 //
 // A topic is identified by the exact Go type flowing through it. Any number

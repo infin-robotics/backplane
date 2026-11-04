@@ -64,7 +64,7 @@ func (b *Backplane) Graph() Graph {
 	for index, m := range b.modules {
 		id := fmt.Sprintf("module:%d", index)
 		moduleIDs[index] = id
-		graph.Nodes = append(graph.Nodes, Node{ID: id, Kind: NodeModule, Label: qualifiedModuleName(m.fn)})
+		graph.Nodes = append(graph.Nodes, moduleNode(index, m))
 		for _, p := range m.params {
 			if p.kind == resourceParameter {
 				resourceTypes[p.typeOf] = struct{}{}
@@ -105,6 +105,10 @@ func (b *Backplane) Graph() Graph {
 	}
 
 	return graph
+}
+
+func moduleNode(index int, m module) Node {
+	return Node{ID: fmt.Sprintf("module:%d", index), Kind: NodeModule, Label: qualifiedModuleName(m.fn)}
 }
 
 // Include returns the selected modules, their published topics, and every
